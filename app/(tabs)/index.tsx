@@ -40,13 +40,15 @@ export default function HomeScreen() {
   }, [])
 
   const renderCharc = ({item} : {item : ICharacter}) => (
-    <View style={styles.card} >
-        <Image source={{uri : item.image}} style={styles.img}></Image>
-        <View style={styles.info}>
-          <Text>{item.name}</Text>
-          <Text>{item.status}</Text>
-        </View>
-    </View>
+   
+      <View style={styles.card} >
+          <Image source={{uri : item.image}} style={styles.img}></Image>
+          <View style={styles.info}>
+            <Text>{item.name}</Text>
+            <Text>{item.status}</Text>
+          </View>
+      </View>
+    
   )
 
   if (loading) {
@@ -63,14 +65,14 @@ export default function HomeScreen() {
   return(
     <>
     {/* flex 1 ocupa 100% da tela, flex 2 ocupa 50% */}
-    <View style={{flex:1}}> 
+    <View style={{flex:1, display: 'flex'}}> 
 
       <View style={styles.inputContainer}>
         <Text>1/42 - </Text>
-        <TextInput value={page} onChangeText={(text) => setPage(text)} keyboardType='numeric' placeholder='Digite o número da página'/>
-        <Button title='Buscar' onPress={() => fetcharc(page)} ></Button>
+        <TextInput value={page} onChangeText={(text) => setPage(text)} keyboardType='numeric' style={styles.input} placeholder='Digite o número da página'/>
+        <Button title='Buscar' color={'#8E1BD6FF'} onPress={() => fetcharc(page)} ></Button>
       </View>
-
+   
       <FlatList data={charc} keyExtractor={(item) => 
         item.id.toString()
       } renderItem={renderCharc} contentContainerStyle={styles.list} />
@@ -85,14 +87,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: "#f9f9f9",
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 8,
     borderRadius: 8,
     overflow: 'hidden',
     elevation: 2, // sombra para android
     shadowColor : '#000000', // sombra para ios
     shadowOpacity: 0.1,
     shadowOffset: { width : 0, height: 2 },
-    shadowRadius: 0.1
+    shadowRadius: 0.1,
+    width: 290
   },
   info : {
     flex : 1,
@@ -123,16 +126,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0'
   },
   list: {
-    padding: 16
+    gap: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: 16,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   input: {
     flex: 1,
     height: 40,
-    borderColor: "#cccccc",
+    borderColor: "#8E1BD6FF",
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 8,
     marginRight: 8
   }
-
 });
